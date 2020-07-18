@@ -1,25 +1,27 @@
 # Definition for a binary tree node.
+# https://leetcode.com/problems/merge-two-binary-trees/
+
 class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+ def __init__(self, val=0, left=None, right=None):
+  self.val = val
+  self.left = left
+  self.right = right
 
 
 def Inorder(root):
-	if root:
-		Inorder(root.left)
-		print(root.val)
-		Inorder(root.right)
+ if root:
+  Inorder(root.left)
+  print(root.val)
+  Inorder(root.right)
 
 # t1
-'''     1
+'''         1
 	   / \
 	  2   3
 	 / \  /
 	5  6 10
-   /
-  9   
+       /
+      9   
 '''		
 
 t1 = TreeNode(1)
@@ -29,26 +31,35 @@ t1.right.left = TreeNode(10)
 t1.left.right = TreeNode(6)				
 t1.left.left = TreeNode(5)
 t1.left.left.left = TreeNode(9)
-
+# r2 
+'''          1
+            / \
+          13   7
+         / \
+        -3  0
+'''
 t2 = TreeNode(1)
-
+t2.left = TreeNode(13)
+t2.right = TreeNode(7)
+t2.left.left = TreeNode(-3)
+t2.left.right = TreeNode(0)
 
 def mergeTrees(t1 : TreeNode,t2 : TreeNode):
-	# if both trees are empty return nothing
-	if not t1 and not t2:
-		return None
+ # if both trees are empty return nothing
+ if not t1 and not t2:
+  return None
+ 
+ if t1 and t2:
+  ans = TreeNode(t1.val + t2.val)
+ else: # if one of them is empty
+  if not t1: # if t1 is empty
+   ans = TreeNode(t2.val)
+  else: # if t2 is empty 
+   ans = TreeNode(t1.val)
 
-	if t1 and t2:
-		ans = TreeNode(t1.val + t2.val)
-	else: # if one of them is empty
-		if not t1: # if t1 is empty
-			ans = TreeNode(t2.val)
-		else: # if t2 is empty 
-			ans = TreeNode(t1.val)
+ ans.left = mergeTrees(t1 and t1.left, t2 and t2.left)
+ ans.right = mergeTrees(t1 and t1.right, t2 and t2.right)
 
-	ans.left = mergeTrees(t1 and t1.left, t2 and t2.left)
-	ans.right = mergeTrees(t1 and t1.right, t2 and t2.right)
-
-	return ans
+ return ans
 
 Inorder(mergeTrees(t1,t2))
