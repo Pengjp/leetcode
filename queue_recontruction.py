@@ -38,7 +38,7 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         # we first sort the list by height then sort it by positiion
-        people = sorted(people, key = lambda x: (-x[0], x[1]))
+        people = sorted(people, key = lambda x: (-x[0], x[1])) # it means that we first sort list by height(negative gives an descending order), then sort it by k
         # new people [[7,0], [7,1], [6,1], [5,0], [5,2], [4,4]]
         res = []
         for p in people:
